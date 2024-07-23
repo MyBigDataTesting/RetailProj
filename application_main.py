@@ -16,5 +16,5 @@ if __name__ == '__main__':
     customers_df = DataReader.read_customers(spark,job_run_env)
     joined_df = DataManipulation.join_orders_customers(orders_filtered,customers_df)
     aggregated_results = DataManipulation.count_orders_state(joined_df)
-    aggregated_results.show()
+    aggregated_results.show(50)
     print("end of main")

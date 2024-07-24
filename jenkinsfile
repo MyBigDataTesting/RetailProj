@@ -1,10 +1,9 @@
 pipeline {
     agent any
-
+    
     environment {
         LABS = credentials('labcreds')
     }
-
     stages {
         stage('Build') {
             steps {
@@ -13,7 +12,6 @@ pipeline {
                 sh '/bitnami/jenkins/home/.local/bin/pipenv install'
             }
         }
-
         stage('Test') {
             steps {
                 sh '/bitnami/jenkins/home/.local/bin/pipenv run pytest'
@@ -21,12 +19,12 @@ pipeline {
         }
         stage('Package') {
             steps {
-                sh 'zip -r retailproject.zip .'
+                sh 'zip -r retailproject.zip.'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'sshpass -p $LABS_PSW scp -o StrictHostKeyChecking=no -r . $LABS_USR@g01.itversity.com:/home/itv012337/retailproject'
+                sh 'sshpass -p $LABS_PSW scp -o StrictHostKeyChecking=no -r. $LABS_USR@g02.itversity.com:/home/itv006753/retailproject'
             }
         }
     }
